@@ -16,7 +16,7 @@ const corsOptions = {
 // );
 
 mongoose.connect(
-  'mongodb://127.0.0.1:27017',
+  'mongodb+srv://pratiksingh067:Mypcpassword%40!232@learndemy.jhfql2s.mongodb.net/',
   {},
 );
 

@@ -17,7 +17,7 @@ const corsOptions = {
 //   process.env.MONGO_CONNECTION_STRING || "",
 //   {},
 // );
-mongoose_1.default.connect('mongodb://127.0.0.1:27017', {});
+mongoose_1.default.connect('mongodb+srv://pratiksingh067:Mypcpassword%40!232@learndemy.jhfql2s.mongodb.net/', {});
 mongoose_1.default.connection.on("open", () => {
     console.log(`DB connected !`);
 });
