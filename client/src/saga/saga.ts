@@ -21,7 +21,7 @@ type Response = {
 };
 
 const userLogin = async (user: UserModel) => {
-  const res = await axios.post<UserModel>("http://localhost:3600/login", {
+  const res = await axios.post<UserModel>("https://learndemy-be.onrender.com/login", {
     email: user.email,
     password: user.password,
   });
@@ -29,7 +29,7 @@ const userLogin = async (user: UserModel) => {
 };
 
 const userSignUp = async (user: UserModel) => {
-  const res = await axios.post<UserModel>("http://localhost:3600/signup", {
+  const res = await axios.post<UserModel>("https://learndemy-be.onrender.com/signup", {
     email: user.email,
     password: user.password,
     name: user.name,
@@ -39,7 +39,7 @@ const userSignUp = async (user: UserModel) => {
 
 const getUserData = async () => {
   const res = await axios.get<UserModel[]>(
-    `http://localhost:3600/user/userData/${localStorage["userId"]}`
+    `https://learndemy-be.onrender.com/user/userData/${localStorage["userId"]}`
   );
   return res;
 };
@@ -62,7 +62,7 @@ export function* userAuthentication(action: PayloadAction<UserModel>) {
 }
 
 const getCourses = async (token: string) => {
-  return axios.get<CourseModel[]>("http://localhost:3600/courses", {
+  return axios.get<CourseModel[]>("https://learndemy-be.onrender.com/courses", {
     headers: {
       Authorization: `Bearer ${localStorage["auth-token"]}`,
     },
@@ -79,7 +79,7 @@ export function* fetchCourses(action: PayloadAction<string>) {
 }
 
 const getCourseById = async (id: number) => {
-  return axios.get<CourseModel[]>(`http://localhost:3600/courseDetail/${id}`, {
+  return axios.get<CourseModel[]>(`https://learndemy-be.onrender.com/courseDetail/${id}`, {
     headers: {
       Authorization: `Bearer ${localStorage["auth-token"]}`,
     },
