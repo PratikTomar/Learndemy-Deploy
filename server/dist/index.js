@@ -11,7 +11,10 @@ const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 dotenv_1.default.config();
 const corsOptions = {
-    origin: "https://learndemy.onrender.com"
+    origin: 'https://learndemy.onrender.com',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
 };
 // mongoose.connect(
 //   process.env.MONGO_CONNECTION_STRING || "",
