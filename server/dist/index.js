@@ -11,7 +11,7 @@ const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const courseRoutes_1 = __importDefault(require("./routes/courseRoutes"));
 dotenv_1.default.config();
 const corsOptions = {
-    origin: "http://localhost:3000"
+    origin: "https://learndemy.onrender.com"
 };
 // mongoose.connect(
 //   process.env.MONGO_CONNECTION_STRING || "",

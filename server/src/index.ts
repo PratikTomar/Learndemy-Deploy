@@ -7,7 +7,7 @@ import courseRouter from "./routes/courseRoutes";
 
 dotenv.config();
 const corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "https://learndemy.onrender.com"
 }
 
 // mongoose.connect(
