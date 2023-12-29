@@ -1,0 +1,16 @@
+{
+  "name": "learndemy-deploy",
+  "version": "1.0.0",
+  "description": "This is Udemy clone project which has Authentication, Authorization, Protected Routes",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd backend && npm install",
+    "start-server": "cd backend && node app.js",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run start"
+  },
+  "keywords": [],
+  "author": "Pratik",
+  "license": "ISC"
+}
