@@ -19,7 +19,7 @@ const corsOptions = {
 // );
 
 mongoose.connect(
-  'mongodb+srv://pratiksingh067:Mypcpassword%40!232@learndemy.jhfql2s.mongodb.net/',
+  'mongodb+srv://pratiksingh067:Tomar@!5526Singh@learndemy.jhfql2s.mongodb.net/',
   {},
 );
 
