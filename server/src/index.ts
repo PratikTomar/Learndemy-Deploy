@@ -13,13 +13,9 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-// mongoose.connect(
-//   process.env.MONGO_CONNECTION_STRING || "",
-//   {},
-// );
 
 mongoose.connect(
-  'mongodb+srv://pratiksingh067:Tomar@!5526Singh@learndemy.jhfql2s.mongodb.net/',
+  process.env.MONGO_CONNECTION_STRING! || "",
   {},
 );
 
@@ -28,15 +24,18 @@ mongoose.connection.on("open", () => {
 });
 
 const app: Express = express();
-const port = 3600;
-// const port = process.env.PORT;
+app.use(cors(corsOptions));
+const port = process.env.PORT;
 
 // Middleware
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use("/", authRouter);
 app.use("/", courseRouter);
 
 app.listen(port, () => {
   console.log(`Server running @ port ${port} !`);
+  // console.log(`${process.env.MONGO_CONNECTION_STRING}`);
+  
 });
