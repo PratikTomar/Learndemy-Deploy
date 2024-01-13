@@ -4,10 +4,7 @@ import axios from "axios";
 import { CourseModel } from "../models/course.model";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { UserModel } from "../models/user.model";
-import {
-  loginUser,
-  signUpUser,
-} from "../redux/reducer/auth.reducer";
+import { loginUser, signUpUser } from "../redux/reducer/auth.reducer";
 import { addSelectedCourse, addCourses } from "../redux/reducer/course.reducer";
 import { searchCourses } from "../redux/reducer/search.reducer";
 
@@ -21,19 +18,25 @@ type Response = {
 };
 
 const userLogin = async (user: UserModel) => {
-  const res = await axios.post<UserModel>("https://learndemy-api.onrender.com/login", {
-    email: user.email,
-    password: user.password,
-  });
+  const res = await axios.post<UserModel>(
+    "https://learndemy-api.onrender.com/login",
+    {
+      email: user.email,
+      password: user.password,
+    }
+  );
   return res;
 };
 
 const userSignUp = async (user: UserModel) => {
-  const res = await axios.post<UserModel>("https://learndemy-api.onrender.com/signup", {
-    email: user.email,
-    password: user.password,
-    name: user.name,
-  });
+  const res = await axios.post<UserModel>(
+    "https://learndemy-api.onrender.com/signup",
+    {
+      email: user.email,
+      password: user.password,
+      name: user.name,
+    }
+  );
   return res;
 };
 
@@ -50,23 +53,27 @@ function* getUserFromServer() {
 }
 
 export function* userAuthentication(action: PayloadAction<UserModel>) {
-  console.log(action);
   let user: UserModel = action.payload;
   let response: Response = yield call(userLogin, user);
 
   if (response.data.status && response.data.token !== undefined) {
     localStorage["auth-token"] = response.data.token;
-    yield put(loginUser({ user : response.data.user, isUserAuthenticated: true }));
+    yield put(
+      loginUser({ user: response.data.user, isUserAuthenticated: true })
+    );
     localStorage["userId"] = response.data.user._id;
   }
 }
 
 const getCourses = async (token: string) => {
-  return axios.get<CourseModel[]>("https://learndemy-api.onrender.com/courses", {
-    headers: {
-      Authorization: `Bearer ${localStorage["auth-token"]}`,
-    },
-  });
+  return axios.get<CourseModel[]>(
+    "https://learndemy-api.onrender.com/courses",
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage["auth-token"]}`,
+      },
+    }
+  );
 };
 
 export function* fetchCourses(action: PayloadAction<string>) {
@@ -79,11 +86,14 @@ export function* fetchCourses(action: PayloadAction<string>) {
 }
 
 const getCourseById = async (id: number) => {
-  return axios.get<CourseModel[]>(`https://learndemy-api.onrender.com/courseDetail/${id}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage["auth-token"]}`,
-    },
-  });
+  return axios.get<CourseModel[]>(
+    `https://learndemy-api.onrender.com/courseDetail/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage["auth-token"]}`,
+      },
+    }
+  );
 };
 
 export function* fetchCourseById(action: PayloadAction<number>) {
@@ -102,7 +112,7 @@ export function* addNewUser({ payload }: PayloadAction<UserModel>) {
 
 export default function* rootSaga() {
   yield takeLatest(sagaActions.AUTHENTICATE_USER, userAuthentication);
-  yield takeLatest(sagaActions.FETCH_COURSES_SAGA_ACTION,fetchCourses);
+  yield takeLatest(sagaActions.FETCH_COURSES_SAGA_ACTION, fetchCourses);
   yield takeLatest(sagaActions.FETCH_COURSE_BY_ID, fetchCourseById);
   yield takeLatest(sagaActions.ADD_NEW_USER, addNewUser);
   yield takeLatest(sagaActions.GET_USER, getUserFromServer);

@@ -8,10 +8,8 @@ import "./cart.css";
 
 const CartPage = () => {
   const cartItem = useSelector((state: RootState) => {
-    console.log(state);
-    
-    
-    return state.cart});
+    return state.cart;
+  });
   const { totalCount, actualTotalCount } = getActualDiscountPrices(cartItem);
   const discount = actualTotalCount - totalCount;
 

@@ -23,23 +23,20 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInput>({ mode: "onChange" });
-  console.log(useForm);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isUserAuthenticated = useSelector(
-    (state: RootState) => {
-      console.log(state);
-      return state.auth.isUserAuthenticated;
-    }
-    
-  );
+  const isUserAuthenticated = useSelector((state: RootState) => {
+    return state.auth.isUserAuthenticated;
+  });
   const onSubmitHandler = (data: LoginInput) => {
     console.log(data);
-    
+
     const { email, password } = data;
     const user = new UserModel(email, password);
-    console.log(dispatch({ type: sagaActions.AUTHENTICATE_USER, payload: user }));
-    
+    console.log(
+      dispatch({ type: sagaActions.AUTHENTICATE_USER, payload: user })
+    );
+
     dispatch({ type: sagaActions.AUTHENTICATE_USER, payload: user });
   };
   useEffect(() => {
@@ -66,7 +63,10 @@ const Login = () => {
             <span>Continue with Apple</span>
           </button>
         </div>
-        <form className="form-container" onSubmit={handleSubmit(onSubmitHandler)}>
+        <form
+          className="form-container"
+          onSubmit={handleSubmit(onSubmitHandler)}
+        >
           <input
             type="email"
             placeholder="Email"

@@ -16,7 +16,6 @@ export const authReducer = createSlice({
   initialState,
   reducers: {
     loginUser: (state, action: PayloadAction<UserAuth>) => {
-      console.log(action)
       state.isUserAuthenticated = action.payload.isUserAuthenticated;
       state.user = action.payload.user;
       return state;
@@ -28,7 +27,7 @@ export const authReducer = createSlice({
     logOutUser: (state) => {
       state.isUserAuthenticated = false;
       state.user = new UserModel();
-    }
+    },
   },
 });
 
