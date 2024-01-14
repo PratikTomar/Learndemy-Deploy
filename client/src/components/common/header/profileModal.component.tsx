@@ -8,10 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 
 type ModalProps = {
   user: UserModel;
-  ref: any;
 };
 
-const ProfileModal = (props: ModalProps) => {
+const ProfileModal = React.forwardRef(
+  (props: ModalProps, ref: React.Ref<any>) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -23,7 +23,7 @@ const ProfileModal = (props: ModalProps) => {
   }
 
   return (
-    <div id="Modal" className="profile-modal-container" ref={props.ref}>
+    <div id="Modal" className="profile-modal-container" ref={ref}>
       <div className="detail-container">
         <div className="name-symbol">{props.user.name?.slice(0, 2)}</div>
         <div className="profile-details">
@@ -46,5 +46,6 @@ const ProfileModal = (props: ModalProps) => {
     </div>
   );
 }
+)
 
 export default ProfileModal;

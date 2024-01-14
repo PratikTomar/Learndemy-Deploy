@@ -11,6 +11,7 @@ import Apple from "../../assets/apple.png";
 import Facebook from "../../assets/facebook.png";
 import { RootState } from "../../redux/store/store";
 import Header from "../common/header/header.component";
+import Loader from "../common/loader/loader.component";
 
 type LoginInput = {
   email: string;
@@ -28,9 +29,8 @@ const Login = () => {
   const isUserAuthenticated = useSelector((state: RootState) => {
     return state.auth.isUserAuthenticated;
   });
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const onSubmitHandler = (data: LoginInput) => {
-    console.log(data);
-
     const { email, password } = data;
     const user = new UserModel(email, password);
     console.log(
@@ -44,6 +44,9 @@ const Login = () => {
       navigate("/dashboard");
     }
   }, [isUserAuthenticated]);
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <Header />

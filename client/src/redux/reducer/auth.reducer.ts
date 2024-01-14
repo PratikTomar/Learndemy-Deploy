@@ -4,11 +4,13 @@ import { UserModel } from "../../models/user.model";
 export type UserAuth = {
   isUserAuthenticated: boolean;
   user: UserModel;
+  isLoading: boolean;
 };
 
 const initialState: UserAuth = {
   isUserAuthenticated: false,
   user: new UserModel(),
+  isLoading: false,
 };
 
 export const authReducer = createSlice({
@@ -28,8 +30,12 @@ export const authReducer = createSlice({
       state.isUserAuthenticated = false;
       state.user = new UserModel();
     },
+    isLoadingContent: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+      return state;
+    },
   },
 });
 
-export const { loginUser, signUpUser, logOutUser } = authReducer.actions;
+export const { loginUser, signUpUser, logOutUser, isLoadingContent } = authReducer.actions;
 export default authReducer.reducer;

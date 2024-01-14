@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import "../forms/form.css";
 import Header from "../common/header/header.component";
 import { RootState } from "../../redux/store/store";
+import Loader from "../common/loader/loader.component";
 
 type SignUpInput = {
   name: string;
@@ -23,12 +24,17 @@ const SignUp = () => {
   } = useForm<SignUpInput>({ mode: "onChange" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
   const onSubmitHandler = (data: SignUpInput) => {
     const { email, name, password } = data;
     const user = new UserModel(email, password, name);
     dispatch({ type: sagaActions.ADD_NEW_USER, payload: user });
     navigate("/dashboard");
   };
+  
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <Header />
