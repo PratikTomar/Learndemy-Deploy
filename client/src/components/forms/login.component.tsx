@@ -79,6 +79,7 @@ const Login = () => {
         >
           <input
             type="email"
+            className="form-input"
             placeholder="Email"
             {...register("email", { required: true })}
           />
@@ -88,10 +89,12 @@ const Login = () => {
           <div className="password-input-container">
             <input
               type={isPasswordShow ? "text" : "password"}
+              className="form-input"
               placeholder="Password"
               {...register("password", {
                 required: true,
                 maxLength: 20,
+                
                 pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
               })}
             />

@@ -56,7 +56,8 @@ const SignUp = () => {
           <input
             type="text"
             placeholder="Full Name"
-            id="name"
+            className="form-input"
+      
             {...register("name", { required: true })}
           />
           {errors.name && <p style={{ color: "red" }}>Name is required !</p>}
@@ -64,6 +65,7 @@ const SignUp = () => {
           <input
             type="email"
             placeholder="Email"
+            className="form-input"
             {...register("email", { required: true })}
           />
           {errors.email && (
@@ -74,6 +76,7 @@ const SignUp = () => {
             <input
               type={isPasswordShow ? "text" : "password"}
               placeholder="Password"
+              className="form-input"
               {...register("password", {
                 required: true,
                 maxLength: 20,
