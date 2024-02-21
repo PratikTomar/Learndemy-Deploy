@@ -39,7 +39,7 @@ const Header = () => {
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      dispatch(loginUser({ isUserAuthenticated: true, user, isLoading:false }));
+      dispatch(loginUser({ isUserAuthenticated: true, user, isLoading:false, isPasswordVisible:false }));
     }
   }, []);
 

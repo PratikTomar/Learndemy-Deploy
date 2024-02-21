@@ -5,10 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { sagaActions } from "../../saga/sagaActions";
 import { Link } from "react-router-dom";
+import eyeOpenImage from "../../assets/open-eye-image.png";
+import eyeCloseImage from "../../assets/close-eye-image.png";
 import "../forms/form.css";
 import Header from "../common/header/header.component";
 import { RootState } from "../../redux/store/store";
 import Loader from "../common/loader/loader.component";
+import { isPasswordVisible } from "../../redux/reducer/auth.reducer";
 
 type SignUpInput = {
   name: string;
@@ -25,13 +28,18 @@ const SignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const isPasswordShow = useSelector(
+    (state: RootState) => state.auth.isPasswordVisible
+  );
   const onSubmitHandler = (data: SignUpInput) => {
     const { email, name, password } = data;
     const user = new UserModel(email, password, name);
     dispatch({ type: sagaActions.ADD_NEW_USER, payload: user });
     navigate("/dashboard");
   };
-  
+  const passwordShowHandler = () => {
+    dispatch(isPasswordVisible(!isPasswordShow));
+  };
   if (isLoading) {
     return <Loader />;
   }
@@ -41,11 +49,14 @@ const SignUp = () => {
       <div className="wrapper">
         <h2 className="heading">Sign up and start Learning</h2>
 
-        <form className="form-container" onSubmit={handleSubmit(onSubmitHandler)}>
+        <form
+          className="form-container"
+          onSubmit={handleSubmit(onSubmitHandler)}
+        >
           <input
             type="text"
             placeholder="Full Name"
-            className="form-input"
+            id="name"
             {...register("name", { required: true })}
           />
           {errors.name && <p style={{ color: "red" }}>Name is required !</p>}
@@ -53,23 +64,29 @@ const SignUp = () => {
           <input
             type="email"
             placeholder="Email"
-            className="form-input"
             {...register("email", { required: true })}
           />
           {errors.email && (
             <p style={{ color: "red" }}>Email Id is required !</p>
           )}
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="form-input"
-            {...register("password", {
-              required: true,
-              maxLength: 20,
-              pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
-            })}
-          />
+          <div className="password-input-container">
+            <input
+              type={isPasswordShow ? "text" : "password"}
+              placeholder="Password"
+              {...register("password", {
+                required: true,
+                maxLength: 20,
+                pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
+              })}
+            />
+            <img
+              className="eye-image"
+              src={isPasswordShow ? eyeOpenImage : eyeCloseImage}
+              alt={isPasswordShow ? `Open eye image` : `Close eye image`}
+              onClick={passwordShowHandler}
+            />
+          </div>
 
           {errors.password && (
             <p style={{ color: "red" }}>

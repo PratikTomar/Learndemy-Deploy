@@ -63,7 +63,7 @@ export function* userAuthentication(action: PayloadAction<UserModel>) {
   if (response.data.status && response.data.token !== undefined) {
     localStorage["auth-token"] = response.data.token;
     yield put(
-      loginUser({ user: response.data.user, isUserAuthenticated: true, isLoading:false, })
+      loginUser({ user: response.data.user, isUserAuthenticated: true, isLoading:false, isPasswordVisible:false })
     );
     localStorage["userId"] = response.data.user._id;
   }
