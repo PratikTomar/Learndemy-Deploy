@@ -10,29 +10,34 @@ const SearchBar = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
   const courses = useSelector((state: RootState) => state.courses);
+  
   useEffect(() => {
-    let coursesSearched: CourseModel[] =[];
-    coursesSearched=courses?.courses.filter(
+    let coursesSearched: CourseModel[] = [];
+    coursesSearched = courses?.courses.filter(
       (item: CourseModel) =>
         item.title.toLowerCase().includes(inputValue.toLowerCase())
     );
 
     dispatch(searchCourses(coursesSearched));
-    
+
   }, [inputValue, courses]);
 
-  const handleInputChange  = (e: any) => {
+  const handleInputChange = (e: any) => {
     setInputValue(e.target.value);
   };
-
+  
   return (
-    <input
-      className="search-bar"
-      type="text"
-      value={inputValue}
-      placeholder="Search your courses"
-      onChange={handleInputChange }
-    />
+    <>
+      {courses.courses.length > 1 && (
+        <input
+          className="search-bar"
+          type="text"
+          value={inputValue}
+          placeholder="Search your courses"
+          onChange={handleInputChange}
+        />
+      )}
+    </>
   );
 }
 
